@@ -16,7 +16,9 @@
       <div class="container">
         <nav class="col-12">
           <a class="col-4 menuItem" href="#all">All</a>
-          <a class="col-3 menuItem" href="#isci">Išči</a>
+          <a class="col-3 menuItem" href="javascript: filtiraj()"
+            >Priljubljeni</a
+          >
           <a class="col-2 menuItem" href="#"
             ><img class="hambMenu" src="assets/images/menu.svg"
           /></a>
@@ -75,6 +77,7 @@
               name="stevilka"
               placeholder="Vpiši številko"
             />
+            <input type="hidden" id="skriti" name="skriti ID" />
 
             <input
               type="checkbox"
@@ -83,12 +86,22 @@
               value="favorite"
             />
             <label for="favorite"> Dodaj pod priljubljeno</label><br />
-            <input
+            <button
               id="dodaj"
-              type="submit"
-              value="Dodaj !"
-              onsubmit="addParticipant()"
-            />
+              class="gumb"
+              type="button"
+              onclick="addParticipant()"
+            >
+              Dodaj !
+            </button>
+            <button
+              class="gumb"
+              id="shrani"
+              type="button"
+              onclick="updateData()"
+            >
+              Shrani !
+            </button>
           </div>
         </div>
       </div>

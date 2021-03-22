@@ -19,7 +19,7 @@ function addToDom(participant) {
   document.querySelector(".content .containerContact .kontakt").innerHTML += `
   <div class="kartica ${priljubljen}" data-id="${participant.id}">
             <div class="col-12">
-              <img class="slikaKontakt" src="${localStorage.getItem("linkec")}">
+              <img class="slikaKontakt" src="${participant.slika}">
             </div>
             <div class="col-12">
               <p>
@@ -31,27 +31,38 @@ function addToDom(participant) {
               <p class="fonska">${participant.stevilka}</p>
             </div>
             <div class="col-12 gumbiNaKontaktih">
-              <div class="col-4 poravnava call" onClick='klicanje("${
-                participant.ime
-              }","${participant.priimek}")'>
+              <div class="col-4 poravnava call" onClick='klicanje("${participant.ime}","${participant.priimek}")'>
                 <img src="assets/images/phone-call.png">
               </div>
-              <div class="col-4 poravnava edit">
+              <div class="col-4 poravnava edit" onClick="editData(${participant.id})">
                 <img src="assets/images/edit.png">
               </div>
-              <div class="col-4 poravnava delete" onClick="domRemoveParticipant(${
-                participant.id
-              })">
+              <div class="col-4 poravnava delete" onClick="domRemoveParticipant(${participant.id})">
                 <img src="assets/images/cancel.png">
               </div>
             </div>
           </div>
           `;
-  localStorage.setItem("linkec", defaultPic);
   steviloVseh();
 }
 function klicanje(ime, priimek) {
   alert("KLIČEM " + ime + " " + priimek);
+}
+
+function filtiraj() {
+  console.log("hehe");
+  var currentParticipants = JSON.parse(localStorage.getItem("participants"));
+  var priljubljeniSamo = [];
+  var priljubljeniVsi = currentParticipants.filter(
+    (participant) => participant.priljubljen == true
+  )[0];
+
+  priljubljeniSamo.push(priljubljeniVsi);
+  console.log(priljubljeniSamo);
+
+  localStorage.setItem("priljubljeni", JSON.stringify(priljubljeniSamo));
+  readFromStoragePriljubljeni();
+  //refresh();
 }
 
 function domRemoveParticipant(dataId) {
@@ -60,6 +71,66 @@ function domRemoveParticipant(dataId) {
     removeFromStorage(dataId);
     console.log(dataId);
   }
+}
+function refresh() {
+  location.reload();
+}
+function updateData() {
+  var tex = document.getElementById("skriti").value;
+  var currentParticipants = JSON.parse(localStorage.getItem("participants"));
+  var newP = currentParticipants.filter(
+    (participant) => participant.id == tex
+  )[0];
+
+  var slikaL = document.getElementById("izberiSliko").getAttribute("src");
+  var imeL = document.getElementById("ime").value;
+  var priimekL = document.getElementById("priimek").value;
+  var stevilkaL = document.getElementById("stevilka").value;
+
+  newP["ime"] = imeL;
+  newP["priimek"] = priimekL;
+  newP["stevilka"] = stevilkaL;
+  newP["slika"] = slikaL;
+
+  // localStorage.setItem(`participants`, JSON.stringify(newP));
+  currentParticipants.splice(tex, 1);
+  currentParticipants.push(newP);
+
+  localStorage.setItem("participants", JSON.stringify(currentParticipants));
+  refresh();
+  // localStorage.setItem("test", JSON.stringify(currentParticipants));
+  // localStorage.removeItem("participants");
+}
+
+function editData(id) {
+  var currentParticipants = JSON.parse(localStorage.getItem("participants"));
+  var newP = currentParticipants.filter(
+    (participant) => participant.id == id
+  )[0];
+  //console.log(newP["ime"]);
+
+  var slikaL = document.getElementById("izberiSliko");
+  var imeL = document.getElementById("ime");
+  var priimekL = document.getElementById("priimek");
+  var stevilkaL = document.getElementById("stevilka");
+  var priljubljenostL = document.getElementById("favorite");
+  var skrit = document.getElementById("skriti");
+
+  slikaL.setAttribute("src", newP["slika"]);
+  imeL.value = newP["ime"];
+  priimekL.value = newP["priimek"];
+  stevilkaL.value = newP["stevilka"];
+  priljubljenostL.value = newP["favorite"];
+  skrit.value = newP["id"];
+
+  var modal = document.getElementById("myModal");
+
+  modal.style.display = "block";
+
+  document.querySelector(".modal-header h2").innerHTML = "Shrani kontakt";
+
+  //$(".kartica").filter(`[data-id="${dataId}"]`).remove();
+  //removeFromStorage(dataId);
 }
 
 function removeFromStorage(id) {
@@ -71,6 +142,8 @@ function removeFromStorage(id) {
 }
 
 function domAddParticipant(participant) {
+  localStorage.setItem("linkec", defaultPic);
+
   addToDom(participant);
 
   if (localStorage.getItem("participants") === null) {
@@ -78,11 +151,11 @@ function domAddParticipant(participant) {
     localStorage.setItem("participants", JSON.stringify([participant]));
   } else {
     var currentParticipants = JSON.parse(localStorage.getItem("participants"));
-    console.log(currentParticipants);
+    //console.log(currentParticipants);
     currentParticipants.push(participant);
     localStorage.setItem(`participants`, JSON.stringify(currentParticipants));
   }
-  console.log(JSON.stringify(participant));
+  //console.log(JSON.stringify(participant));
 }
 $(() => {
   $("#izberiSliko").click(function () {
@@ -128,16 +201,17 @@ function addParticipant(event) {
     priimek: priimek,
     stevilka: stevilka,
     priljubljen: priljubljen,
+    slika: localStorage.linkec,
     id: localStorage.steviloKontaktov,
   };
   localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
 
   // Add participant to the HTML
   domAddParticipant(participant);
-  $("#izberiSliko").attr("src", defaultPic);
 
   // Move cursor to the first name input field
   document.getElementById("ime").focus();
+  document.getElementById("izberiSliko").setAttribute("src", defaultPic);
 }
 
 // $(() => {
@@ -170,7 +244,22 @@ function readFromStorage() {
   }
 }
 
+function readFromStoragePriljubljeni() {
+  steviloVseh();
+  var dodaj = [];
+
+  if (localStorage.getItem("priljubljeni") !== null) {
+    dodaj = JSON.parse(localStorage.getItem("priljubljeni"));
+    for (var i = 0; i < dodaj.length; i++) {
+      addToDom(dodaj[i]);
+    }
+  }
+}
+
 window.onload = function () {
+  document.getElementById("dodaj").value = "Dodaj nov kontakt";
+  document.querySelector(".modal-header h2").innerHTML = "Dodaj nov kontakt";
+
   // Get the modal
   var modal = document.getElementById("myModal");
 

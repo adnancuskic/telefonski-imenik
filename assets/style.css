@@ -280,7 +280,17 @@ p {
   font-size: 28px;
   font-weight: bold;
 }
-
+.gumb {
+  width: 100%;
+  background-color: #e6d5aa;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
 .close:hover,
 .close:focus {
   color: #000;
