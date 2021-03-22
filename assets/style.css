@@ -1,0 +1,341 @@
+/* [class*="col-"] {
+  float: left;
+  width: 100%;
+} */
+
+.col-1 {
+  width: 8.33%;
+}
+.col-2 {
+  width: 16.66%;
+}
+.col-3 {
+  width: 25%;
+}
+.col-4 {
+  width: 33.33%;
+}
+.col-5 {
+  width: 41.66%;
+}
+.col-6 {
+  width: 50%;
+}
+.col-7 {
+  width: 58.33%;
+}
+.col-8 {
+  width: 66.66%;
+}
+.col-9 {
+  width: 75%;
+}
+.col-10 {
+  width: 83.33%;
+}
+.col-11 {
+  width: 91.66%;
+}
+.col-12 {
+  width: 100%;
+}
+
+@font-face {
+  font-family: "Roboto Th";
+  src: url("fonts/Roboto-Thin.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+.flot {
+  float: left;
+}
+/* ----------------------------------------------------------- */
+
+html {
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Roboto Th;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#header {
+  background-color: #e6d5aa;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+a:link {
+  color: #51624f;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+a:visited {
+  color: #354634;
+  transform: scale(1.3);
+  transition: all 0.2s;
+}
+
+a:hover {
+  transform: scale(1.3);
+  transition: all 0.2s;
+}
+
+a:active {
+  transform: scale(1.3);
+  transition: all 0.2s;
+  color: #354634;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.containerContact {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.content {
+  background-image: linear-gradient(#c2b49b, #2e3d33);
+  padding-bottom: 50px;
+  min-height: 100vh;
+}
+
+nav a,
+nav img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+nav img.hambMenu {
+  height: 30px !important;
+  text-align: center;
+}
+
+.profilePic {
+  border-radius: 180px;
+  height: 30px;
+  border: 1px solid black;
+}
+
+.menuItem {
+  text-align: center;
+}
+
+.kontakt {
+  text-align: center;
+  padding-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.kartica {
+  background-color: #ffffff3f;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  width: 45%;
+  box-shadow: 0 8px 6px -6px black;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.kartica:hover {
+  transform: scale(1.05);
+  transition: all 0.2s;
+}
+.slikaKontakt {
+  margin-top: 10px;
+  border-radius: 180px;
+  height: 60px;
+}
+
+.gumbiNaKontaktih {
+  display: flex;
+  height: 30px;
+  background-color: white;
+  font-size: 10px;
+}
+
+.gumbiNaKontaktih img {
+  height: 16px;
+}
+
+.fav {
+  width: 95%;
+}
+
+.poravnava {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+p {
+  margin: 5px;
+}
+
+.call {
+  background-color: #9fe497ab;
+  cursor: pointer;
+}
+.edit {
+  background-color: #e4cc97ab;
+  cursor: pointer;
+}
+.delete {
+  background-color: #e49797ab;
+  cursor: pointer;
+}
+
+.ime,
+.priimek {
+  color: white;
+  font-weight: 100;
+}
+
+.fonska {
+  color: white;
+  font-weight: 600;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  background-color: #e6d5aa;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: -1px 9px 10px 0 black;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  text-align: center;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 7px;
+  background-color: #e6d5aa;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #e6d5aa;
+  color: white;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+input[type="submit"] {
+  width: 100%;
+  background-color: #e6d5aa;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+input[type="submit"]:hover {
+  background-color: #d6c089;
+}
+
+#steviloKontaktov {
+  text-align: right;
+}
+
+.imageUpload > input {
+  display: none;
+}

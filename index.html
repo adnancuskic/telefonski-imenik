@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets\style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="assets/js/scripts.js"></script>
+
+    <title>Telefonski imenik</title>
+  </head>
+  <body>
+    <div id="header" class="col-12">
+      <div class="container">
+        <nav class="col-12">
+          <a class="col-4 menuItem" href="#all">All</a>
+          <a class="col-3 menuItem" href="#isci">Išči</a>
+          <a class="col-2 menuItem" href="#"
+            ><img class="hambMenu" src="assets/images/menu.svg"
+          /></a>
+          <a class="col-2 menuItem" href="#"
+            ><img class="profilePic" src="assets/images/profilepic.jpg"
+          /></a>
+        </nav>
+      </div>
+    </div>
+    <!-- END OF HEADER -->
+    <div class="col-12 content">
+      <div class="containerContact">
+        <div class="kontakt col-12"></div>
+      </div>
+    </div>
+    <div class="footer">
+      <button id="myBtn" style="background-color: #e6d5aa; border: none">
+        <img style="height: 25px" src="assets/images/add.png" />
+      </button>
+      <p id="steviloKontaktov">Število kontaktov:</p>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Dodaj novi kontakt</h2>
+          </div>
+          <div class="modal-body">
+            <div class="col-12 imageUpload">
+              <p>Izberi sliko</p>
+              <img
+                id="izberiSliko"
+                class="slikaKontakt"
+                src="assets/images/profilepic.jpg"
+              />
+
+              <input id="file-input" type="file" name="name" />
+            </div>
+
+            <label for="ime">Ime</label>
+            <input type="text" id="ime" name="ime" placeholder="Vpiši ime" />
+
+            <label for="priimek">Priimek</label>
+            <input
+              type="text"
+              id="priimek"
+              name="priimek"
+              placeholder="Vpiši priimek"
+            />
+
+            <label for="stevilka">Številka</label>
+            <input
+              type="text"
+              id="stevilka"
+              name="stevilka"
+              placeholder="Vpiši številko"
+            />
+
+            <input
+              type="checkbox"
+              id="favorite"
+              name="favorite"
+              value="favorite"
+            />
+            <label for="favorite"> Dodaj pod priljubljeno</label><br />
+            <input
+              id="dodaj"
+              type="submit"
+              value="Dodaj !"
+              onsubmit="addParticipant()"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
