@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets\style.css" />
+    <link rel="stylesheet" href="assets/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="assets/js/scripts.js"></script>
@@ -15,18 +15,31 @@
     <div id="header" class="col-12">
       <div class="container">
         <nav class="col-12">
-          <a class="col-4 menuItem" href="#all">All</a>
-          <a class="col-3 menuItem" href="javascript: filtiraj()"
+          <a class="col-4 menuItem" href="javascript: showAll()">All</a>
+          <a class="col-4 menuItem" href="javascript: filtiraj()"
             >Priljubljeni</a
           >
-          <a class="col-2 menuItem" href="#"
-            ><img class="hambMenu" src="assets/images/menu.svg"
+          <a class="col-2 menuItem" href="javascript: isci()"
+            ><img class="hambMenu" alt="Iskanje" src="assets/images/search.png"
           /></a>
-          <a class="col-2 menuItem" href="#"
-            ><img class="profilePic" src="assets/images/profilepic.jpg"
-          /></a>
+          <a class="col-1 menuItem" href="javascript: refresh()"
+            ><img
+              alt="Regresh Page"
+              class="hambMenu"
+              src="assets/images/clear.png"
+            />
+          </a>
+          <div class="col-12 menuItem">
+            <input
+              type="text"
+              id="iskanje"
+              style="padding: 5px 5px"
+              placeholder="Vnesi ime, priimek ali stevilko"
+            />
+          </div>
         </nav>
       </div>
+      <span id="ura"></span>
     </div>
     <!-- END OF HEADER -->
     <div class="col-12 content">
@@ -35,8 +48,15 @@
       </div>
     </div>
     <div class="footer">
-      <button id="myBtn" style="background-color: #e6d5aa; border: none">
-        <img style="height: 25px" src="assets/images/add.png" />
+      <button
+        id="myBtn"
+        style="background-color: #e6d5aa; border: none; cursor: pointer"
+      >
+        <img
+          style="height: 25px"
+          src="assets/images/add.png"
+          alt="izbira slike"
+        />
       </button>
       <p id="steviloKontaktov">Število kontaktov:</p>
       <!-- The Modal -->
@@ -52,8 +72,10 @@
               <p>Izberi sliko</p>
               <img
                 id="izberiSliko"
+                style="cursor: pointer"
                 class="slikaKontakt"
                 src="assets/images/profilepic.jpg"
+                alt="Izbira slike"
               />
 
               <input id="file-input" type="file" name="name" />

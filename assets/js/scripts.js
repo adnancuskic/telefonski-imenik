@@ -1,8 +1,7 @@
 "use strict";
-
 var defaultPic = "assets/images/profilepic.jpg";
 
-var priljubljen = "";
+var priljubljen = "normal";
 
 function steviloVseh() {
   document.getElementById(
@@ -14,7 +13,7 @@ function addToDom(participant) {
   if (participant.priljubljen == true) {
     priljubljen = "fav";
   } else {
-    priljubljen = "";
+    priljubljen = "normal";
   }
   document.querySelector(".content .containerContact .kontakt").innerHTML += `
   <div class="kartica ${priljubljen}" data-id="${participant.id}">
@@ -23,12 +22,8 @@ function addToDom(participant) {
             </div>
             <div class="col-12">
               <p>
-                <span class="ime">${participant.ime}</span>
-                <span class="priimek">${participant.priimek}</span>
+                <span class="ime">${participant.ime} ${participant.priimek} <br> <span class="stevilka">${participant.stevilka}<span> </span>
               </p>
-            </div>
-            <div class="col-12">
-              <p class="fonska">${participant.stevilka}</p>
             </div>
             <div class="col-12 gumbiNaKontaktih">
               <div class="col-4 poravnava call" onClick='klicanje("${participant.ime}","${participant.priimek}")'>
@@ -49,19 +44,44 @@ function klicanje(ime, priimek) {
   alert("KLIČEM " + ime + " " + priimek);
 }
 
+function showAll() {
+  refresh();
+}
+function isci() {
+  // var b = document.getElementById("iskanje").value;
+
+  var a = document.querySelectorAll(".kontakt .kartica");
+  // console.log(a);
+
+  var input = document.getElementById("iskanje");
+  var filter = input.value.toUpperCase();
+
+  for (var i = 0; i < a.length; i++) {
+    console.log("hehe");
+    var c = a[i].getElementsByTagName("span")[0];
+    var txtValue = c.textContent || c.innerText;
+
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
 function filtiraj() {
-  console.log("hehe");
-  var currentParticipants = JSON.parse(localStorage.getItem("participants"));
-  var priljubljeniSamo = [];
-  var priljubljeniVsi = currentParticipants.filter(
-    (participant) => participant.priljubljen == true
-  )[0];
-
-  priljubljeniSamo.push(priljubljeniVsi);
-  console.log(priljubljeniSamo);
-
-  localStorage.setItem("priljubljeni", JSON.stringify(priljubljeniSamo));
-  readFromStoragePriljubljeni();
+  var a = document.querySelectorAll(".kontakt .kartica.normal");
+  Array.prototype.forEach.call(a, function (node) {
+    node.parentNode.removeChild(node);
+  });
+  // console.log("hehe");
+  // var currentParticipants = JSON.parse(localStorage.getItem("participants"));
+  // var priljubljeniSamo = [];
+  // var priljubljeniVsi = currentParticipants.filter(
+  //   (participant) => participant.priljubljen == true
+  // )[0];
+  // priljubljeniSamo.push(priljubljeniVsi);
+  // console.log(priljubljeniSamo);
+  // localStorage.setItem("priljubljeni", JSON.stringify(priljubljeniSamo));
   //refresh();
 }
 
@@ -186,7 +206,7 @@ function addParticipant(event) {
   const priimek = document.querySelector("#priimek").value;
   const stevilka = document.querySelector("#stevilka").value;
   const priljubljen = document.querySelector("#favorite").checked;
-
+  //linkec = defaultPic;
   //console.log(ime, priimek, stevilka, priljubljen, slika);
 
   // TODO: Set input fields to empty values
@@ -223,6 +243,24 @@ function addParticipant(event) {
 document.addEventListener("DOMContentLoaded", () => {
   // This function is run after the page contents have been loaded
   // Put your initialization code here
+  var span = document.getElementById("ura");
+
+  function time() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes();
+    var h = d.getHours();
+    span.textContent =
+      ("0" + h).substr(-2) +
+      ":" +
+      ("0" + m).substr(-2) +
+      ":" +
+      ("0" + s).substr(-2);
+  }
+
+  setInterval(time, 1000);
+
+  localStorage.setItem("linkec", defaultPic);
 
   steviloVseh();
   if (!localStorage.steviloKontaktov) {
@@ -244,21 +282,10 @@ function readFromStorage() {
   }
 }
 
-function readFromStoragePriljubljeni() {
-  steviloVseh();
-  var dodaj = [];
-
-  if (localStorage.getItem("priljubljeni") !== null) {
-    dodaj = JSON.parse(localStorage.getItem("priljubljeni"));
-    for (var i = 0; i < dodaj.length; i++) {
-      addToDom(dodaj[i]);
-    }
-  }
-}
-
 window.onload = function () {
   document.getElementById("dodaj").value = "Dodaj nov kontakt";
   document.querySelector(".modal-header h2").innerHTML = "Dodaj nov kontakt";
+  document.getElementById("ime").setValue = "";
 
   // Get the modal
   var modal = document.getElementById("myModal");
@@ -271,6 +298,13 @@ window.onload = function () {
 
   // When the user clicks the button, open the modal
   btn.onclick = function () {
+    document.getElementById("izberiSliko").setAttribute("src", defaultPic);
+    document.getElementById("priimek").value = "";
+    document.getElementById("stevilka").value = "";
+    document.querySelector(".modal-header h2").innerHTML =
+      "Ustvari nov kontakt";
+    document.getElementById("ime").value = "";
+
     modal.style.display = "block";
   };
 

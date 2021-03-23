@@ -68,10 +68,18 @@ body {
   overflow-x: hidden;
 }
 
+#ura {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
 #header {
   background-color: #e6d5aa;
   padding-top: 10px;
   padding-bottom: 10px;
+  float: left;
 }
 a:link {
   color: #51624f;
@@ -348,4 +356,9 @@ input[type="submit"]:hover {
 
 .imageUpload > input {
   display: none;
+}
+
+.stevilka {
+  font-size: 20px;
+  margin-top: 20px;
 }
