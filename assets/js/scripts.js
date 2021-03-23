@@ -5,13 +5,20 @@ var priljubljen = "normal";
 
 function steviloVseh() {
   var stevilo = JSON.parse(localStorage.getItem("participants"));
-
-  document.getElementById(
-    "steviloKontaktov"
-  ).innerHTML = `Število kontaktov: ${stevilo.length}`;
+  if (stevilo) {
+    document.getElementById(
+      "steviloKontaktov"
+    ).innerHTML = `Število kontaktov: ${stevilo.length}`;
+  } else {
+    document.getElementById(
+      "steviloKontaktov"
+    ).innerHTML = `Število kontaktov: 0`;
+  }
 }
 
 function addToDom(participant) {
+  //localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
+
   if (participant.priljubljen == true) {
     priljubljen = "fav";
   } else {
@@ -85,7 +92,6 @@ function refresh() {
   location.reload();
 }
 function updateData() {
-  localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
   var ime = document.querySelector("#ime").value;
   var priimek = document.querySelector("#priimek").value;
   var stevilka = document.querySelector("#stevilka").value;
@@ -100,6 +106,7 @@ function updateData() {
       return;
     }
   }
+  //localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
 
   $(".kartica").filter(`[data-id="${tex}"]`).remove();
   removeFromStorage(tex);
@@ -114,7 +121,6 @@ function editData(id) {
   var newP = currentParticipants.filter(
     (participant) => participant.id == id
   )[0];
-
   localStorage.setItem("linkec", newP["slika"]);
 
   var slikaL = document.getElementById("izberiSliko");
@@ -140,7 +146,7 @@ function editData(id) {
 }
 
 function removeFromStorage(id) {
-  localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) - 1;
+  //localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) - 1;
   var currentParticipants = JSON.parse(localStorage.getItem("participants"));
   var newP = currentParticipants.filter((participant) => participant.id != id);
   localStorage.setItem(`participants`, JSON.stringify(newP));
@@ -185,6 +191,7 @@ $(() => {
 });
 
 function addParticipant() {
+  document.getElementById("izberiSliko").setAttribute("src", defaultPic);
   const ime = document.querySelector("#ime").value;
   const priimek = document.querySelector("#priimek").value;
   const stevilka = document.querySelector("#stevilka").value;
@@ -210,13 +217,13 @@ function addParticipant() {
         id: localStorage.steviloKontaktov,
       };
       localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
-
       domAddParticipant(participant);
 
       document.getElementById("ime").focus();
       document.getElementById("izberiSliko").setAttribute("src", defaultPic);
     }
   }
+  steviloVseh();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
