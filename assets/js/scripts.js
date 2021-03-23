@@ -48,10 +48,7 @@ function showAll() {
   refresh();
 }
 function isci() {
-  // var b = document.getElementById("iskanje").value;
-
   var a = document.querySelectorAll(".kontakt .kartica");
-  // console.log(a);
 
   var input = document.getElementById("iskanje");
   var filter = input.value.toUpperCase();
@@ -73,16 +70,6 @@ function filtiraj() {
   Array.prototype.forEach.call(a, function (node) {
     node.parentNode.removeChild(node);
   });
-  // console.log("hehe");
-  // var currentParticipants = JSON.parse(localStorage.getItem("participants"));
-  // var priljubljeniSamo = [];
-  // var priljubljeniVsi = currentParticipants.filter(
-  //   (participant) => participant.priljubljen == true
-  // )[0];
-  // priljubljeniSamo.push(priljubljeniVsi);
-  // console.log(priljubljeniSamo);
-  // localStorage.setItem("priljubljeni", JSON.stringify(priljubljeniSamo));
-  //refresh();
 }
 
 function domRemoveParticipant(dataId) {
@@ -129,7 +116,6 @@ function editData(id) {
   var newP = currentParticipants.filter(
     (participant) => participant.id == id
   )[0];
-  //console.log(newP["ime"]);
 
   var slikaL = document.getElementById("izberiSliko");
   var imeL = document.getElementById("ime");
@@ -150,9 +136,6 @@ function editData(id) {
   modal.style.display = "block";
 
   document.querySelector(".modal-header h2").innerHTML = "Shrani kontakt";
-
-  //$(".kartica").filter(`[data-id="${dataId}"]`).remove();
-  //removeFromStorage(dataId);
 }
 
 function removeFromStorage(id) {
@@ -173,11 +156,9 @@ function domAddParticipant(participant) {
     localStorage.setItem("participants", JSON.stringify([participant]));
   } else {
     var currentParticipants = JSON.parse(localStorage.getItem("participants"));
-    //console.log(currentParticipants);
     currentParticipants.push(participant);
     localStorage.setItem(`participants`, JSON.stringify(currentParticipants));
   }
-  //console.log(JSON.stringify(participant));
 }
 $(() => {
   $("#izberiSliko").click(function () {
@@ -203,26 +184,22 @@ $(() => {
 });
 
 function addParticipant(event) {
-  // TODO: Get values
   const ime = document.querySelector("#ime").value;
   const priimek = document.querySelector("#priimek").value;
   const stevilka = document.querySelector("#stevilka").value;
   const priljubljen = document.querySelector("#favorite").checked;
-  //linkec = defaultPic;
-  //console.log(ime, priimek, stevilka, priljubljen, slika);
+
   if (/^([a-z]){0,}$/.test(stevilka) == true) {
     alert("Vnesi validno številko - uporabni samo številke!");
   } else {
     if (ime == "" || priimek == "") {
       alert("Izpolni vsa polja z zvezdico");
     } else {
-      // TODO: Set input fields to empty values
       document.querySelector("#ime").value = "";
       document.querySelector("#priimek").value = "";
       document.querySelector("#stevilka").value = "";
       document.querySelector("#favorite").checked = false;
 
-      // Create participant object
       const participant = {
         ime: ime,
         priimek: priimek,
@@ -233,25 +210,15 @@ function addParticipant(event) {
       };
       localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
 
-      // Add participant to the HTML
       domAddParticipant(participant);
 
-      // Move cursor to the first name input field
       document.getElementById("ime").focus();
       document.getElementById("izberiSliko").setAttribute("src", defaultPic);
     }
   }
 }
 
-// $(() => {
-//   $(".gumbiNaKontaktih .delete").click(function () {
-//     console.log("test");
-//   });
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
-  // This function is run after the page contents have been loaded
-  // Put your initialization code here
   var span = document.getElementById("ura");
 
   function time() {
@@ -296,16 +263,12 @@ window.onload = function () {
   document.querySelector(".modal-header h2").innerHTML = "Dodaj nov kontakt";
   document.getElementById("ime").setValue = "";
 
-  // Get the modal
   var modal = document.getElementById("myModal");
 
-  // Get the button that opens the modal
   var btn = document.getElementById("myBtn");
 
-  // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
-  // When the user clicks the button, open the modal
   btn.onclick = function () {
     document.getElementById("shrani").style.display = "none";
     document.getElementById("dodaj").style.display = "block";
@@ -319,12 +282,10 @@ window.onload = function () {
     modal.style.display = "block";
   };
 
-  // When the user clicks on <span> (x), close the modal
   span.onclick = function () {
     modal.style.display = "none";
   };
 
-  // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
