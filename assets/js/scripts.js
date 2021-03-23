@@ -96,33 +96,35 @@ function refresh() {
   location.reload();
 }
 function updateData() {
-  var tex = document.getElementById("skriti").value;
-  var currentParticipants = JSON.parse(localStorage.getItem("participants"));
-  var newP = currentParticipants.filter(
-    (participant) => participant.id == tex
-  )[0];
+  var ime = document.querySelector("#ime").value;
+  var priimek = document.querySelector("#priimek").value;
+  var stevilka = document.querySelector("#stevilka").value;
 
-  var slikaL = document.getElementById("izberiSliko").getAttribute("src");
-  var imeL = document.getElementById("ime").value;
-  var priimekL = document.getElementById("priimek").value;
-  var stevilkaL = document.getElementById("stevilka").value;
+  if (/^([a-z]){0,}$/.test(stevilka) == true) {
+    alert("Vnesi validno številko - uporabni samo številke!");
+  } else {
+    if (ime == "" || priimek == "" || stevilka == "") {
+      alert("Izpolni vsa polja z zvezdico");
+    } else {
+      var tex = document.getElementById("skriti").value;
+      var currentParticipants = JSON.parse(
+        localStorage.getItem("participants")
+      );
+      var newP = currentParticipants.filter(
+        (participant) => participant.id == tex
+      )[0];
 
-  newP["ime"] = imeL;
-  newP["priimek"] = priimekL;
-  newP["stevilka"] = stevilkaL;
-  newP["slika"] = slikaL;
-
-  // localStorage.setItem(`participants`, JSON.stringify(newP));
-  currentParticipants.splice(tex, 1);
-  currentParticipants.push(newP);
-
-  localStorage.setItem("participants", JSON.stringify(currentParticipants));
-  refresh();
-  // localStorage.setItem("test", JSON.stringify(currentParticipants));
-  // localStorage.removeItem("participants");
+      var slikaL = document.getElementById("izberiSliko").getAttribute("src");
+      var imeL = document.getElementById("ime").value;
+      var priimekL = document.getElementById("priimek").value;
+      var stevilkaL = document.getElementById("stevilka").value;
+    }
+  }
 }
 
 function editData(id) {
+  document.getElementById("dodaj").style.display = "none";
+  document.getElementById("shrani").style.display = "block";
   var currentParticipants = JSON.parse(localStorage.getItem("participants"));
   var newP = currentParticipants.filter(
     (participant) => participant.id == id
@@ -208,30 +210,37 @@ function addParticipant(event) {
   const priljubljen = document.querySelector("#favorite").checked;
   //linkec = defaultPic;
   //console.log(ime, priimek, stevilka, priljubljen, slika);
+  if (/^([a-z]){0,}$/.test(stevilka) == true) {
+    alert("Vnesi validno številko - uporabni samo številke!");
+  } else {
+    if (ime == "" || priimek == "") {
+      alert("Izpolni vsa polja z zvezdico");
+    } else {
+      // TODO: Set input fields to empty values
+      document.querySelector("#ime").value = "";
+      document.querySelector("#priimek").value = "";
+      document.querySelector("#stevilka").value = "";
+      document.querySelector("#favorite").checked = false;
 
-  // TODO: Set input fields to empty values
-  document.querySelector("#ime").value = "";
-  document.querySelector("#priimek").value = "";
-  document.querySelector("#stevilka").value = "";
-  document.querySelector("#favorite").checked = false;
+      // Create participant object
+      const participant = {
+        ime: ime,
+        priimek: priimek,
+        stevilka: stevilka,
+        priljubljen: priljubljen,
+        slika: localStorage.linkec,
+        id: localStorage.steviloKontaktov,
+      };
+      localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
 
-  // Create participant object
-  const participant = {
-    ime: ime,
-    priimek: priimek,
-    stevilka: stevilka,
-    priljubljen: priljubljen,
-    slika: localStorage.linkec,
-    id: localStorage.steviloKontaktov,
-  };
-  localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
+      // Add participant to the HTML
+      domAddParticipant(participant);
 
-  // Add participant to the HTML
-  domAddParticipant(participant);
-
-  // Move cursor to the first name input field
-  document.getElementById("ime").focus();
-  document.getElementById("izberiSliko").setAttribute("src", defaultPic);
+      // Move cursor to the first name input field
+      document.getElementById("ime").focus();
+      document.getElementById("izberiSliko").setAttribute("src", defaultPic);
+    }
+  }
 }
 
 // $(() => {
@@ -298,6 +307,8 @@ window.onload = function () {
 
   // When the user clicks the button, open the modal
   btn.onclick = function () {
+    document.getElementById("shrani").style.display = "none";
+    document.getElementById("dodaj").style.display = "block";
     document.getElementById("izberiSliko").setAttribute("src", defaultPic);
     document.getElementById("priimek").value = "";
     document.getElementById("stevilka").value = "";

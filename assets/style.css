@@ -180,6 +180,20 @@ nav img.hambMenu {
 
 .fav {
   width: 95%;
+  background-image: url("./images/favorite.jpg");
+  background-repeat: no-repeat;
+  background-size: 36px;
+  background-position-x: right;
+}
+
+.req {
+  font-size: 25px;
+  color: #c5a249;
+}
+
+#dodaj,
+#shrani {
+  display: none;
 }
 
 .poravnava {
@@ -361,4 +375,19 @@ input[type="submit"]:hover {
 .stevilka {
   font-size: 20px;
   margin-top: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .col-1,
+  .col-2,
+  .col-4 {
+    width: 48%;
+  }
+  .menuItem {
+    margin-bottom: 10px;
+  }
+
+  .kartica.normal {
+    width: 80% !important;
+  }
 }
