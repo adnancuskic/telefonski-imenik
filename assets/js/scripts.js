@@ -17,8 +17,6 @@ function steviloVseh() {
 }
 
 function addToDom(participant) {
-  //localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
-
   if (participant.priljubljen == true) {
     priljubljen = "fav";
   } else {
@@ -92,6 +90,8 @@ function refresh() {
   location.reload();
 }
 function updateData() {
+  var modal = document.getElementById("myModal");
+
   var ime = document.querySelector("#ime").value;
   var priimek = document.querySelector("#priimek").value;
   var stevilka = document.querySelector("#stevilka").value;
@@ -106,12 +106,12 @@ function updateData() {
       return;
     }
   }
-  //localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) + 1;
 
   $(".kartica").filter(`[data-id="${tex}"]`).remove();
   removeFromStorage(tex);
   addParticipant();
   steviloVseh();
+  modal.style.display = "none";
 }
 
 function editData(id) {
@@ -146,7 +146,6 @@ function editData(id) {
 }
 
 function removeFromStorage(id) {
-  //localStorage.steviloKontaktov = Number(localStorage.steviloKontaktov) - 1;
   var currentParticipants = JSON.parse(localStorage.getItem("participants"));
   var newP = currentParticipants.filter((participant) => participant.id != id);
   localStorage.setItem(`participants`, JSON.stringify(newP));

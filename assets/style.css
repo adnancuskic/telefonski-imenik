@@ -173,6 +173,10 @@ nav img.hambMenu {
   height: 60px;
 }
 
+.spisek li {
+  margin-top: 10px;
+  text-align: left;
+}
 .gumbiNaKontaktih {
   display: flex;
   height: 30px;
